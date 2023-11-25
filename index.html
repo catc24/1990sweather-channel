@@ -59,6 +59,7 @@
   <center> 
         <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
     </center>
+  <img id="gaylord-icon" class="gaylord-icon" alt="Weather Icon">
 
   <div class="container">
         <p id="gaylord"></p>
@@ -78,6 +79,11 @@
             .catch(error => console.error('Error fetching weather data:', error));
 
 
+
+
+
+
+      
       // GAYLORD ICON 
       // Fetch JSON from the provided API
       fetch('https://api.weather.gov/gridpoints/APX/45,85/forecast/hourly?units=us')
@@ -85,8 +91,8 @@
         .then(data => {
           // Phrases to look for and corresponding icon paths
           const phrasesToIcons = {
-            'Mostly Cloudy': 'img/icons/PartlyCloudy1.gif',
-            'cloudy': 'path-to-cloudy-icon.png',
+            'Mostly Cloudy': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBVIphjxIlwbhe2Xhy05Z5iVnYdZNzOO_GLg&usqp=CAU',
+            'cloudy': 'cloudy-icon.png',
             // Add more phrases and icon paths as needed
           };
 
@@ -95,14 +101,11 @@
             data.properties.periods.some(period => period.shortForecast.toLowerCase().includes(phrase))
           );
 
-          // If a match is found, create and append the image tag
+          // If a match is found, set the src attribute of the img tag
           if (matchedPhrase) {
             const iconPath = phrasesToIcons[matchedPhrase];
-            const img = document.createElement('img');
+            const img = document.getElementById('gaylord-icon');
             img.src = iconPath;
-            img.alt = matchedPhrase;
-            img.classList.add('gaylord-icon');
-            document.body.appendChild(img);
           }
         })
         .catch(error => console.error('Error fetching weather data:', error));
