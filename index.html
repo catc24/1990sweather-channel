@@ -22,12 +22,14 @@
         margin: 0 auto; /* Center the container */
     }
 
-  .gaylord-icon {
+  .weather-icon {
     position: fixed;
     top: 20px;
     right: 20px;
     width: 50px;
     height: 50px;
+    /* Customize position and size as needed */
+    /* Example: top: 50px; left: 50px; width: 100px; height: 100px; */
   }
   
     #gaylord {
@@ -59,7 +61,7 @@
   <center> 
         <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
     </center>
-  <img id="gaylord-icon" class="gaylord-icon" alt="Weather Icon">
+  <img id="gaylord-icon" class="weather-icon" alt="Weather Icon">
 
   <div class="container">
         <p id="gaylord"></p>
@@ -87,27 +89,35 @@
       // GAYLORD ICON 
       // Fetch JSON from the provided API
       fetch('https://api.weather.gov/gridpoints/APX/45,85/forecast/hourly?units=us')
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
         .then(data => {
           // Phrases to look for and corresponding icon paths
           const phrasesToIcons = {
-            'Mostly Cloudy': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBVIphjxIlwbhe2Xhy05Z5iVnYdZNzOO_GLg&usqp=CAU',
+            'Mostly Cloudy': 'https://1990s-weather-channel.vercel.app/img/icons/PartlyCloudy1.gif',
             'cloudy': 'cloudy-icon.png',
             // Add more phrases and icon paths as needed
           };
 
-          // Find the first matching phrase in the "shortForecast" property
-          const matchedPhrase = Object.keys(phrasesToIcons).find(phrase =>
-            data.properties.periods.some(period => period.shortForecast.toLowerCase().includes(phrase))
-          );
+          // Find the matching phrase for each forecast period
+          for (const period of data.properties.periods) {
+            const matchedPhrase = Object.keys(phrasesToIcons).find(phrase =>
+              period.shortForecast.toLowerCase().includes(phrase.toLowerCase())
+            );
 
-          // If a match is found, set the src attribute of the img tag
-          if (matchedPhrase) {
-            const iconPath = phrasesToIcons[matchedPhrase];
-            const img = document.getElementById('gaylord-icon');
-            img.src = iconPath;
+            // If a match is found, set the src attribute of the img tag
+            if (matchedPhrase) {
+              const iconPath = phrasesToIcons[matchedPhrase];
+              const img = document.getElementById('gaylord-icon');
+              img.src = iconPath;
+              break; // Break out of the loop once a match is found
+            }
           }
         })
-        .catch(error => console.error('Error fetching weather data:', error));
+        .catch(error => console.error('Error fetching or parsing weather data:', error));
     </script>
 </body>
