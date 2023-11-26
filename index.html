@@ -1,122 +1,63 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        position: relative;
-        color: blue;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Webpage Title</title>
 
-  @font-face {
-      font-family: 'Star3000 Large Heavy';
-      src: url('Star3000 Large Heavy.ttf') format('truetype');
-      /* You can include additional font formats (e.g., woff, woff2) for better browser compatibility */
-  }
+    <!-- Link your CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 
-  body {
-      font-family: 'Star3000 Large Heavy', sans-serif;
-  }
-
-    .container {
-        position: relative;
-        width: 50%; /* Adjust the width as needed */
-        margin: 0 auto; /* Center the container */
-    }
-
-  .gaylord-icon-css {
-    position: absolute;
-    top: 555px;
-    left: 1400px;
-    width: 2.5%;
-    /* Customize position and size as needed */
-    /* Example: top: 50px; left: 50px; width: 100px; height: 100px; */
-  }
-  
-    #gaylord {
-        z-index: 1;
-        position: absolute;
-        top: 520px; /* Adjust the top position as needed */
-        left: 670px; /* Adjust the left position as needed */
-        font-size: 36px; /* Set the font size */
-        color: #FFFF00; /* Set the text color */
-        -webkit-text-stroke: 2px #000; /* Outline effect for WebKit browsers (Safari, Chrome) */
-        text-stroke: 2px #000; /* Outline effect for Firefox */
-    }
-
-    .weather-image {
-        width: 60%;
-        height: auto;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1; /* Places the image behind the text */
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 500px;
-        margin-right: 20px;
-    }
-</style>
 
 <body>
-  <center> 
-        <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
-    </center>
-  <img id="gaylord-icon" class="gaylord-icon-css" alt="Weather Icon">
+    <p id="gaylord"></p>
+    <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
+    <img id="gaylord-icon" class="gaylord-icon-css" alt="Weather Icon">
+    </div> 
 
-  <div class="container">
-        <p id="gaylord"></p>
-    </div>
+
+  <p id="grand-rapids"></p>
+  <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
+  <img id="grand-rapids-icon" class="grand-rapids-icon-css" alt="Weather Icon">
   </div> 
-    <script>
-        // Fetch data from the API
-        fetch('https://api.weather.gov/gridpoints/APX/45,85/forecast/hourly?units=us')
-            .then(response => response.json())
-            .then(data => {
-                // Extract temperature information from the first period
-                const temperature = data.properties.periods[0].temperature;
 
-                // Display the temperature in the weather-info paragraph
-                document.getElementById('gaylord').innerText = ` ${temperature}`;
-            })
-            .catch(error => console.error('Error fetching weather data:', error));
+
+
+
+
+  <p id="detroit"></p>
+  <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
+  <img id="detroit-icon" class="detroit-icon-css" alt="Weather Icon">
+  </div> 
 
 
 
 
 
 
-      
-      // GAYLORD ICON 
-      // Fetch JSON from the provided API
-      fetch('https://api.weather.gov/gridpoints/APX/45,85/forecast/hourly?units=us')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Phrases to look for and corresponding icon paths
-          const phrasesToIcons = {
-            'Mostly Cloudy': 'https://1990s-weather-channel.vercel.app/img/icons/PartlyCloudy1.gif',
-            'cloudy': 'cloudy-icon.png',
-            // Add more phrases and icon paths as needed
-          };
+  
 
-          // Find the matching phrase for each forecast period
-          for (const period of data.properties.periods) {
-            const matchedPhrase = Object.keys(phrasesToIcons).find(phrase =>
-              period.shortForecast.toLowerCase().includes(phrase.toLowerCase())
-            );
+  <p id="chicago"></p>
+  <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
+  <img id="chicago-icon" class="chicago-icon-css" alt="Weather Icon">
+  </div> 
 
-            // If a match is found, set the src attribute of the img tag
-            if (matchedPhrase) {
-              const iconPath = phrasesToIcons[matchedPhrase];
-              const img = document.getElementById('gaylord-icon');
-              img.src = iconPath;
-              break; // Break out of the loop once a match is found
-            }
-          }
-        })
-        .catch(error => console.error('Error fetching or parsing weather data:', error));
-    </script>
-</body>
+
+
+
+
+  <p id="green-bay"></p>
+  <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
+  <img id="green-bay-icon" class="green-bay-icon-css" alt="Weather Icon">
+  </div> 
+
+
+  
+
+
+
+  <p id="eau-claire"></p>
+  <img class="weather-image" id="weather-image" src="img/GRregion.png" alt="Local Weather Image">
+  <img id="eau-claire-icon" class="eau-claire-icon-css" alt="Weather Icon">
+  </div> 
